@@ -10,7 +10,6 @@ dotenv.config();
 authRoutes.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
     if (!name && !email && !password) {
       return res.status(401).send("Please provide all parameters");
     }

@@ -6,7 +6,7 @@ import History from "../../components/History/history";
 const Home = ({ user, history, loadHistory }) => {
   useEffect(() => {
     if (user.user) {
-      loadHistory(user.user);
+      // loadHistory(user.user);
     }
   }, []);
 

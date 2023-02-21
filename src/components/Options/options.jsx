@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const Options = ({ choice, selected, setSelected }) => {
+const Options = ({ choice, selected, setSelected, setAnswer }) => {
   return (
     <label
-      htmlFor={choice}
+      htmlFor={choice.id}
       className={`flex justify-start btn rounded py-4 px-8 text-left  ${
         selected === choice ? "bg-green-400 " : "bg-gray-100 "
       }hover:bg-green-200 focus:ring-green-300`}
@@ -48,17 +48,19 @@ const Options = ({ choice, selected, setSelected }) => {
           }}
           className="text-center"
         >
-          A
+          {choice.id}
         </p>
       )}
 
-      {choice}
+      {choice.text}
       <input
         type="radio"
-        id={choice}
+        id={choice.id}
         name="choices"
         className="hidden"
-        onChange={() => setSelected(choice)}
+        onChange={() => {
+          setSelected(choice), setAnswer(choice.id);
+        }}
       />
     </label>
   );

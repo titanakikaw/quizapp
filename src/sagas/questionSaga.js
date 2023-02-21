@@ -5,7 +5,7 @@ function* loadQuestions() {
   try {
     const res = yield call(axiosInstance, {
       method: "GET",
-      url: "660/questions",
+      url: "questions",
     });
 
     yield put({

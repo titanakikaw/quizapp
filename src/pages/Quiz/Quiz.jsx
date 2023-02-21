@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import FinishAttempt from "../../components/FinishAttempt/FinishAttempt";
 import Footer from "../../components/FormFooter/Footer";
 import Question from "../../components/Question/question";
 
@@ -8,13 +9,26 @@ const Quiz = ({ loadQuestions, questions }) => {
   useEffect(() => {
     loadQuestions();
   }, []);
+  const dispatch = useDispatch();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [finalAnswers, setFinalAnswers] = useState([]);
 
   const nextQuestion = () => {
     if (currentQuestion < questions.length) {
       setCurrentQuestion((x) => x + 1);
+      setFinalAnswers((x) => [
+        ...x,
+        { questionId: questions[currentQuestion].id, answers },
+      ]);
     }
+  };
+
+  const submitFinalAnswer = () => {
+    dispatch({
+      type: "SUBMIT_ANSWERS_REQUEST",
+      payload: finalAnswers,
+    });
   };
 
   useEffect(() => {
@@ -52,16 +66,20 @@ const Quiz = ({ loadQuestions, questions }) => {
       </div>
       {questions && (
         <>
-          <Question
-            question={questions[currentQuestion]}
-            setAnswers={setAnswers}
-            answers={answers}
-          />
+          {currentQuestion != questions.length ? (
+            <Question
+              question={questions[currentQuestion]}
+              setAnswer={setAnswers}
+            />
+          ) : (
+            <FinishAttempt />
+          )}
+
           <Footer
             counter={currentQuestion}
             questions={questions}
-            answers={answers}
             nextQuestion={nextQuestion}
+            addFinalAnswer={submitFinalAnswer}
           />
         </>
       )}
