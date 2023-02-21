@@ -8,7 +8,6 @@ module.exports = function verifyToken(req, res, next) {
   } else {
     jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded) => {
       if (error) {
-        console.log(error);
         res.status(401).json({ error: "Invalid token" });
       } else {
         req.userId = decoded.userId;

@@ -5,14 +5,15 @@ function* loadHistory({ payload }) {
   try {
     const res = yield call(axiosInstance, {
       method: "GET",
-      url: `660/history?userId=${payload.id}`,
+      url: `answers/history?userId=${payload._id}`,
     });
-
     yield put({
       type: "LOAD_HISTORY_SUCCESS",
       payload: res,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function* submitAnswer({ payload }) {
@@ -27,7 +28,9 @@ function* submitAnswer({ payload }) {
       type: "ADD_ANSWER_SUCCESS",
       payload: res,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function* submitAnswerRequest() {

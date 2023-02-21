@@ -87,8 +87,9 @@ const Quiz = ({ loadQuestions, questions }) => {
   );
 };
 
-const mapStateToProps = ({ questions }) => ({
+const mapStateToProps = ({ questions, history }) => ({
   questions,
+  history,
 });
 
 const mapDispatchToProps = (dispatch) => ({

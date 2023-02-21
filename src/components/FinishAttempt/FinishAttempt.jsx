@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 const FinishAttempt = () => {
   return (
@@ -14,5 +15,5 @@ const FinishAttempt = () => {
     </div>
   );
 };
-
-export default FinishAttempt;
+const mapStateToProps = ({ history }) => {};
+export default connect(null, null)(FinishAttempt);

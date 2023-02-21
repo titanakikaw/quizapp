@@ -6,7 +6,7 @@ import History from "../../components/History/history";
 const Home = ({ user, history, loadHistory }) => {
   useEffect(() => {
     if (user.user) {
-      // loadHistory(user.user);
+      loadHistory(user.user);
     }
   }, []);
 
@@ -32,8 +32,10 @@ const Home = ({ user, history, loadHistory }) => {
           className="grid lg:grid-cols-3 sm:grid-cols-2 gap-2 text-center"
           style={{ borderTop: "1px solid black", paddingTop: "1rem" }}
         >
-          {history && history.length != 0 ? (
-            history.map((x) => <History details={x} />)
+          {history.history[0] && history.history[0].length != 0 ? (
+            history.history[0].map((x, index) => (
+              <History details={x} key={x.id} counter={index + 1} />
+            ))
           ) : (
             <p className="text-xs font-light italic text-gray-400 ">
               No history available !
@@ -47,7 +49,7 @@ const Home = ({ user, history, loadHistory }) => {
 
 const mapStateToProps = ({ user, history }) => ({
   user,
-  history,
+  history: history,
 });
 
 const mapDispatchToProps = (dispatch) => ({

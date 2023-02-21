@@ -1,11 +1,14 @@
-export const HistoryIniState = [];
+export const HistoryIniState = {
+  history: [],
+  latestSubmitted: null,
+};
 
 export const historyReducer = (state = HistoryIniState, { type, payload }) => {
   switch (type) {
     case "LOAD_HISTORY_SUCCESS":
-      return [...payload];
+      return { ...state, history: [payload] };
     case "ADD_ANSWER_SUCCESS":
-      return [...state, payload];
+      return { history: [...state.history, payload], latestSubmitted: payload };
     default:
       return state;
   }
