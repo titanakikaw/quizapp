@@ -44,7 +44,9 @@ authRoutes.post("/login", async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(404)
+        .send("Invalid user id, Please check credentials provided");
     }
     const isMatch = bcrypt.compare(password, user.password);
     if (isMatch) {
@@ -58,7 +60,7 @@ authRoutes.post("/login", async (req, res) => {
 
       res.json({ accessToken, user });
     } else {
-      res.status(401).json({ message: "Invalid password" });
+      res.status(401).send("Invalid password");
     }
   } catch (error) {}
 });

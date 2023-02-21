@@ -16,7 +16,9 @@ axiosInstance.interceptors.request.use(
     }
     return updatedConfig;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    Promise.reject(error);
+  }
 );
 
 axiosInstance.interceptors.response.use(

@@ -8,16 +8,15 @@ function* login({ payload, meta }) {
       url: "auth/login",
       data: payload,
     });
+
     yield put({
       type: "LOGIN_SUCCESS",
       payload: res,
-      meta,
     });
   } catch (error) {
     yield put({
       type: "LOGIN_FAIL",
-      payload: error,
-      meta,
+      payload: error.message,
     });
   }
 }

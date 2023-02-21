@@ -9,7 +9,7 @@ export const userReducer = (state = UserInitState, { type, payload }) => {
     case "REGISTER_SUCCESS":
       localStorage.setItem("token", JSON.stringify(payload));
       return { ...payload };
-
+    // return UserInitState;
     case "LOGOUT": {
       localStorage.removeItem("token");
       return UserInitState;

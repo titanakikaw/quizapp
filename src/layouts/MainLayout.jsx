@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 const MainLayout = ({ user }) => {
-  console.log(user);
   if (!user.user) {
     return <Navigate to="/auth" replace />;
   }
