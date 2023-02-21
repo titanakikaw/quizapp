@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import Header from "../components/Header/Header";
 const MainLayout = ({ user }) => {
+  console.log(user);
   if (!user.user) {
     return <Navigate to="/auth" replace />;
   }
@@ -11,12 +11,10 @@ const MainLayout = ({ user }) => {
       className="h-screen flex flex-col"
       style={{
         backgroundColor: "#EDE8E3",
-        border: "1px solid black",
         boxSizing: "border-box",
         overflowY: "scroll",
       }}
     >
-      {/* <Header /> */}
       <Outlet />
     </div>
   );

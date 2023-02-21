@@ -1,6 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const Footer = ({ questions, nextQuestion, counter, addFinalAnswer }) => {
+const Footer = ({
+  questions,
+  nextQuestion,
+  counter,
+  addFinalAnswer,
+  latestSubmitted,
+}) => {
+  console.log(latestSubmitted);
   return (
     <div
       className="footer flex items-center lg:flex-row sm:flex-col mx-auto justify-center py-5 w-full"
@@ -26,27 +34,31 @@ const Footer = ({ questions, nextQuestion, counter, addFinalAnswer }) => {
           </p>
         </div>
       )}
-      <div className="progress_bar mx-5 sm:w-64">
-        {counter === questions.length ? (
-          <button
-            className="btn rounded w-full"
-            onClick={() => addFinalAnswer(questions)}
-          >
-            Finish Attempt
-          </button>
-        ) : (
-          <button
-            className="btn rounded w-full"
-            onClick={() => {
-              nextQuestion();
-            }}
-          >
-            Continue
-          </button>
-        )}
-      </div>
+      {!latestSubmitted && (
+        <div className="progress_bar mx-5 sm:w-64">
+          {counter === questions.length ? (
+            <button
+              className="btn rounded w-full"
+              onClick={() => addFinalAnswer(questions)}
+            >
+              Finish Attempt
+            </button>
+          ) : (
+            <button
+              className="btn rounded w-full"
+              onClick={() => {
+                nextQuestion();
+              }}
+            >
+              Continue
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
-
-export default Footer;
+const mapStateToProps = ({ history: { latestSubmitted } }) => ({
+  latestSubmitted,
+});
+export default connect(mapStateToProps, null)(Footer);

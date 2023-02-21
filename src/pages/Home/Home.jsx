@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import History from "../../components/History/history";
 
-const Home = ({ user, history, loadHistory }) => {
+const Home = ({ user, history, loadHistory, logOut }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (user.user) {
       loadHistory(user.user);
@@ -18,7 +20,9 @@ const Home = ({ user, history, loadHistory }) => {
           <Link to="Quiz" className="btn">
             Start Quiz
           </Link>
-          <button className="btn bg-red-500">Logout</button>
+          <button className="btn bg-red-500" onClick={logOut}>
+            Logout
+          </button>
         </div>
 
         <hr></hr>
@@ -26,7 +30,7 @@ const Home = ({ user, history, loadHistory }) => {
           className="text-center text-lg font-medium"
           style={{ textTransform: "uppercase" }}
         >
-          Your Previous Attempts
+          Your History
         </h1>
         <div
           className="grid lg:grid-cols-3 sm:grid-cols-2 gap-2 text-center"
@@ -34,7 +38,7 @@ const Home = ({ user, history, loadHistory }) => {
         >
           {history.history[0] && history.history[0].length != 0 ? (
             history.history[0].map((x, index) => (
-              <History details={x} key={x.id} counter={index + 1} />
+              <History key={index} details={x} counter={index + 1} />
             ))
           ) : (
             <p className="text-xs font-light italic text-gray-400 ">
@@ -58,5 +62,6 @@ const mapDispatchToProps = (dispatch) => ({
       type: "LOAD_HISTORY_REQUEST",
       payload: value,
     }),
+  logOut: () => dispatch({ type: "LOGOUT" }),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

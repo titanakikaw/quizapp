@@ -12,7 +12,7 @@ export const userReducer = (state = UserInitState, { type, payload }) => {
 
     case "LOGOUT": {
       localStorage.removeItem("token");
-      return state;
+      return UserInitState;
     }
     default:
       return state;

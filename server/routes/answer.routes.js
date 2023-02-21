@@ -11,7 +11,9 @@ const answerRoutes = express.Router();
 answerRoutes.get("/history", verifyToken, async (req, res) => {
   try {
     const id = req.query.userId;
-    const arrAns = await Answers.find({ userId: new ObjectId(id) });
+    const arrAns = await Answers.find({ userId: new ObjectId(id) }).sort({
+      createAt: "descending",
+    });
     res.status(200).json(arrAns);
   } catch (error) {}
 });

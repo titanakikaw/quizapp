@@ -9,6 +9,9 @@ export const historyReducer = (state = HistoryIniState, { type, payload }) => {
       return { ...state, history: [payload] };
     case "ADD_ANSWER_SUCCESS":
       return { history: [...state.history, payload], latestSubmitted: payload };
+
+    case "CLEAR_LATEST_ANSWER":
+      return { ...state, latestSubmitted: null };
     default:
       return state;
   }

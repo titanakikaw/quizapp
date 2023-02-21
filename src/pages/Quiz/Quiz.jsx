@@ -6,9 +6,6 @@ import Footer from "../../components/FormFooter/Footer";
 import Question from "../../components/Question/question";
 
 const Quiz = ({ loadQuestions, questions }) => {
-  useEffect(() => {
-    loadQuestions();
-  }, []);
   const dispatch = useDispatch();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -33,21 +30,16 @@ const Quiz = ({ loadQuestions, questions }) => {
 
   useEffect(() => {
     loadQuestions();
-    nextQuestion();
   }, []);
+
   return (
-    <div
-      style={{ border: "1px solid black", height: "100%" }}
-      className="flex flex-col"
-    >
+    <div style={{ height: "100%" }} className="flex flex-col">
       <div className="px-2 sm:px-6 lg:px-40 relative flex h-16 items-center justify-between">
-        <div className="p-1" style={{ backgroundColor: "red" }}>
-          <p className="text-xs font-semibold">200</p>
-        </div>
+        {/* <div className="p-1" style={{ backgroundColor: "red" }}></div> */}
         <div>
           <p className="text-2xl font-semibold">Fantasy Quiz</p>
         </div>
-        <Link to="/home">
+        <Link to="/Home">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
