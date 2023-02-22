@@ -12,7 +12,12 @@ function* loadQuestions() {
       type: "LOAD_QUESTIONS_SUCCESS",
       payload: res,
     });
-  } catch (error) {}
+  } catch (error) {
+    yield put({
+      type: "LOAD_QUESTIONS_FAIL",
+      payload: error.message,
+    });
+  }
 }
 
 function* getQuestionRequest() {

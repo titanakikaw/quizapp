@@ -3,17 +3,18 @@ import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import History from "../../components/History/history";
 
-const Home = ({ user, answers, loadHistory, logOut }) => {
+const Home = ({ user, answers, loadHistory, logOut, clearLatestAnswer }) => {
   useEffect(() => {
     if (user.user) {
       loadHistory(user.user);
+      clearLatestAnswer();
     }
   }, []);
 
   return (
     <div className="mx-auto max-w-7xl px-2 py-10 sm:px-6 lg:px-8 ">
       <div className="grid grid-cols-1 gap-4 text-center px-10">
-        <div className="header rounded p-5 flex flex-wrap sm:justify-center md:justify-between bg-white">
+        <div className="header rounded p-5 flex justify-center flex-wrap sm:justify-center md:justify-between bg-white">
           <div className="">
             <p className="text-xs tracking-wide font-medium text-left uppercase">
               Current User:
@@ -70,5 +71,10 @@ const mapDispatchToProps = (dispatch) => ({
       payload: value,
     }),
   logOut: () => dispatch({ type: "LOGOUT" }),
+  clearLatestAnswer: () => {
+    dispatch({
+      type: "CLEAR_LATEST_ANSWER",
+    });
+  },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

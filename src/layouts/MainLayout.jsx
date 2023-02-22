@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-const MainLayout = ({ user }) => {
+const MainLayout = ({ user, errors }) => {
   if (!user.user) {
     return <Navigate to="/auth" replace />;
   }
@@ -12,14 +12,22 @@ const MainLayout = ({ user }) => {
         backgroundColor: "#EDE8E3",
         boxSizing: "border-box",
         overflowY: "scroll",
+        textAlign: "center",
       }}
     >
-      <Outlet />
+      {errors[0]?.payload ? (
+        <p className="text-xs text-red-600" style={{ paddingTop: "1rem" }}>
+          {errors[0]?.payload}
+        </p>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
 };
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, errors }) => ({
+  errors,
   user,
 });
 

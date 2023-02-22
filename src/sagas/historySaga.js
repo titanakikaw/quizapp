@@ -12,7 +12,10 @@ function* loadHistory({ payload }) {
       payload: res,
     });
   } catch (error) {
-    console.log(error);
+    yield put({
+      type: "LOAD_HISTORY_FAIL",
+      payload: error.message,
+    });
   }
 }
 
@@ -29,7 +32,10 @@ function* submitAnswer({ payload }) {
       payload: res,
     });
   } catch (error) {
-    console.log(error);
+    yield put({
+      type: "SUBMIT_ANSWERS_FAIL",
+      payload: error.message,
+    });
   }
 }
 

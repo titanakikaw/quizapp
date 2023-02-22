@@ -22,7 +22,7 @@ questionRoutes.get("/", verifyToken, async (req, res) => {
       res.status(200).json(newReponse);
     }
   } catch (error) {
-    console.log(error.message);
+    res.status(401).json({ message: error.message });
   }
 });
 export default questionRoutes;

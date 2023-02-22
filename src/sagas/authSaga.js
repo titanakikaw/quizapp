@@ -34,9 +34,8 @@ function* register({ payload, meta }) {
     });
   } catch (error) {
     yield put({
-      type: "LOGIN_FAIL",
+      type: "REGISTER_FAIL",
       payload: error,
-      meta,
     });
   }
 }

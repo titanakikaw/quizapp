@@ -10,7 +10,7 @@ const Quiz = ({ loadQuestions, questions, loading }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [finalAnswers, setFinalAnswers] = useState([]);
-  console.log(loading);
+
   const nextQuestion = () => {
     if (currentQuestion < questions.length) {
       setCurrentQuestion((x) => x + 1);
