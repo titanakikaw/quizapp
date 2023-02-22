@@ -25,7 +25,7 @@ function* submitAnswer({ payload }) {
     });
 
     yield put({
-      type: "ADD_ANSWER_SUCCESS",
+      type: "SUBMIT_ANSWERS_SUCCESS",
       payload: res,
     });
   } catch (error) {

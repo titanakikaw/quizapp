@@ -6,9 +6,8 @@ const Footer = ({
   nextQuestion,
   counter,
   addFinalAnswer,
-  latestSubmitted,
+  answers,
 }) => {
-  console.log(latestSubmitted);
   return (
     <div
       className="footer flex items-center lg:flex-row sm:flex-col mx-auto justify-center py-5 w-full"
@@ -34,7 +33,7 @@ const Footer = ({
           </p>
         </div>
       )}
-      {!latestSubmitted && (
+      {!answers.latestSubmitted && (
         <div className="progress_bar mx-5 sm:w-64">
           {counter === questions.length ? (
             <button
@@ -58,7 +57,7 @@ const Footer = ({
     </div>
   );
 };
-const mapStateToProps = ({ history: { latestSubmitted } }) => ({
-  latestSubmitted,
+const mapStateToProps = ({ answers }) => ({
+  answers,
 });
 export default connect(mapStateToProps, null)(Footer);

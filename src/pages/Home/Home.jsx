@@ -3,9 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import History from "../../components/History/history";
 
-const Home = ({ user, history, loadHistory, logOut }) => {
-  const dispatch = useDispatch();
-
+const Home = ({ user, answers, loadHistory, logOut }) => {
   useEffect(() => {
     if (user.user) {
       loadHistory(user.user);
@@ -14,15 +12,24 @@ const Home = ({ user, history, loadHistory, logOut }) => {
 
   return (
     <div className="mx-auto max-w-7xl px-2 py-10 sm:px-6 lg:px-8 ">
-      <div className="grid grid-cols-1 gap-4 text-center">
-        <p className="text-4xl font-medium">Welcome! {user.user.name}</p>
-        <div className="grid grid-cols-2 gap-1">
-          <Link to="Quiz" className="btn">
-            Start Quiz
-          </Link>
-          <button className="btn bg-red-500" onClick={logOut}>
+      <div className="grid grid-cols-1 gap-4 text-center px-10">
+        <div className="header rounded p-5 flex flex-wrap sm:justify-center md:justify-between bg-white">
+          <div className="">
+            <p className="text-xs tracking-wide font-medium text-left uppercase">
+              Current User:
+            </p>
+            <p className="text-md font-medium ">{user.user.name}</p>
+          </div>
+
+          <button className="btn rounded bg-red-500 px-9" onClick={logOut}>
             Logout
           </button>
+        </div>
+
+        <div className="w-full">
+          <Link to="Quiz" className="btn rounded bg-green-500 w-full">
+            Start Quiz
+          </Link>
         </div>
 
         <hr></hr>
@@ -36,12 +43,12 @@ const Home = ({ user, history, loadHistory, logOut }) => {
           className="grid lg:grid-cols-3 sm:grid-cols-2 gap-2 text-center"
           style={{ borderTop: "1px solid black", paddingTop: "1rem" }}
         >
-          {history.history[0] && history.history[0].length != 0 ? (
-            history.history[0].map((x, index) => (
-              <History key={index} details={x} counter={index + 1} />
-            ))
+          {answers.history ? (
+            answers.history.map((x, index) => {
+              return <History key={index} details={x} counter={index + 1} />;
+            })
           ) : (
-            <p className="text-xs font-light italic text-gray-400 ">
+            <p className="text-xs font-light italic text-gray-400 text-center">
               No history available !
             </p>
           )}
@@ -51,9 +58,9 @@ const Home = ({ user, history, loadHistory, logOut }) => {
   );
 };
 
-const mapStateToProps = ({ user, history }) => ({
+const mapStateToProps = ({ user, answers }) => ({
   user,
-  history: history,
+  answers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

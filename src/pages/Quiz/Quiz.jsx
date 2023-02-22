@@ -5,12 +5,12 @@ import FinishAttempt from "../../components/FinishAttempt/FinishAttempt";
 import Footer from "../../components/FormFooter/Footer";
 import Question from "../../components/Question/question";
 
-const Quiz = ({ loadQuestions, questions }) => {
+const Quiz = ({ loadQuestions, questions, loading }) => {
   const dispatch = useDispatch();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [finalAnswers, setFinalAnswers] = useState([]);
-
+  console.log(loading);
   const nextQuestion = () => {
     if (currentQuestion < questions.length) {
       setCurrentQuestion((x) => x + 1);
@@ -35,7 +35,6 @@ const Quiz = ({ loadQuestions, questions }) => {
   return (
     <div style={{ height: "100%" }} className="flex flex-col">
       <div className="px-2 sm:px-6 lg:px-40 relative flex h-16 items-center justify-between">
-        {/* <div className="p-1" style={{ backgroundColor: "red" }}></div> */}
         <div>
           <p className="text-2xl font-semibold">Fantasy Quiz</p>
         </div>
@@ -56,32 +55,39 @@ const Quiz = ({ loadQuestions, questions }) => {
           </svg>
         </Link>
       </div>
-      {questions && (
-        <>
-          {currentQuestion != questions.length ? (
-            <Question
-              question={questions[currentQuestion]}
-              setAnswer={setAnswers}
-            />
-          ) : (
-            <FinishAttempt />
-          )}
+      {loading.length !== 0 ? (
+        <div className="content flex-1 flex flex-col items-center px-2 sm:px-6 lg:px-40 relative flex h-16 items-center justify-center">
+          Loading . . . .
+        </div>
+      ) : (
+        questions && (
+          <>
+            {currentQuestion != questions.length ? (
+              <Question
+                question={questions[currentQuestion]}
+                setAnswer={setAnswers}
+              />
+            ) : (
+              <FinishAttempt />
+            )}
 
-          <Footer
-            counter={currentQuestion}
-            questions={questions}
-            nextQuestion={nextQuestion}
-            addFinalAnswer={submitFinalAnswer}
-          />
-        </>
+            <Footer
+              counter={currentQuestion}
+              questions={questions}
+              nextQuestion={nextQuestion}
+              addFinalAnswer={submitFinalAnswer}
+            />
+          </>
+        )
       )}
     </div>
   );
 };
 
-const mapStateToProps = ({ questions, history }) => ({
+const mapStateToProps = ({ questions, answers, loading }) => ({
   questions,
-  history,
+  answers,
+  loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

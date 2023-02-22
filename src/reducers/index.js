@@ -7,7 +7,7 @@ import { userReducer } from "./userReducer";
 export default combineReducers({
   user: userReducer,
   questions: questReducer,
-  history: historyReducer,
+  answers: historyReducer,
   loading: loadingReducer,
   errors: errorReducer,
 });
